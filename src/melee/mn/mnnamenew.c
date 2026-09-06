@@ -1502,11 +1502,7 @@ HSD_GObj* mnNameNew_GlyphVariantSetup(NameNewEntry* arg0, u16 arg1, s32 arg2)
                 if (i == (s32) (u8) arg2) {
                     break;
                 }
-                if (key_jobj == NULL) {
-                    key_jobj = NULL;
-                } else {
-                    key_jobj = key_jobj->next;
-                }
+                key_jobj = HSD_JObjGetNext(key_jobj);
             }
         }
 

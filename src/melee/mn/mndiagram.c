@@ -938,16 +938,14 @@ static inline u8 mnDiagram_GetVisibleNameRowForInput(u8* sorted, int start,
     p = p + 0x1C;
     while (remaining > 0) {
         p2 = p;
-    loop:
-        idx++;
-        p2++;
-        p++;
-        if (idx >= 0x78) {
-            return 0x78;
-        }
-        if (GetNameText(*p2) == NULL) {
-            goto loop;
-        }
+        do {
+            idx++;
+            p2++;
+            p++;
+            if (idx >= 0x78) {
+                return 0x78;
+            }
+        } while (GetNameText(*p2) == NULL);
         remaining--;
     }
     p = sorted;
