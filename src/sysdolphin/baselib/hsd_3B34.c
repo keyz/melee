@@ -593,7 +593,7 @@ void hsd_803B3CD8(s32 arg0)
     work_r25_2 = &lbl_80431638[1];
     work_r23 = 1;
     do {
-        work_r22 = work->data.coef[*work_r25_2];
+        work_r22 = ((JpegBlock*) work->data.coef)->data[*work_r25_2];
         scratch_r0_2 = work_r22;
         if (scratch_r0_2 != 0) {
             scratch_r4_12 = work_r24 + 1;
