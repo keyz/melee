@@ -230,7 +230,7 @@ def main() -> None:
                 re.MULTILINE,
             )
 
-            result, count = re.subn(placeholder, output, text, count=1)
+            result, count = re.subn(placeholder, lambda _: output, text, count=1)
             if count < 1:
                 result = result + f"\n{output}"
 
