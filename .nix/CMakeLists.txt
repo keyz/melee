@@ -529,6 +529,7 @@ set(SOURCES
     src/melee/ft/ftwalkcommon.c
     src/melee/ft/ftwalljump.c
     src/melee/gm/gm_1601.c
+    src/melee/gm/gm_16A2.c
     src/melee/gm/gm_16AE.c
     src/melee/gm/gm_16F1.c
     src/melee/gm/gm_1736.c
@@ -611,16 +612,20 @@ set(SOURCES
     src/melee/gm/gmtou_2.c
     src/melee/gm/gmtoulib.c
     src/melee/gm/gmvsmelee.c
+    src/melee/gr/granime.c
     src/melee/gr/grbattle.c
     src/melee/gr/grcorneria.c
     src/melee/gr/grdatfiles.c
     src/melee/gr/grdisplay.c
     src/melee/gr/grdynamicattr.c
+    src/melee/gr/grfigure1.c
     src/melee/gr/grfigureget.c
     src/melee/gr/grfzerocar.c
     src/melee/gr/grmaterial.c
     src/melee/gr/ground.c
     src/melee/gr/grpstadium.c
+    src/melee/gr/grtcaptain.c
+    src/melee/gr/grtsamus.c
     src/melee/gr/grzakogenerator.c
     src/melee/gr/stage.c
     src/melee/if/if_2F6E.c
