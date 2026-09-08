@@ -13,25 +13,44 @@ set(SOURCES
     src/sysdolphin/baselib/cobj.c
     src/sysdolphin/baselib/controller.c
     src/sysdolphin/baselib/devcom.c
+    src/sysdolphin/baselib/displayfunc.c
     src/sysdolphin/baselib/dobj.c
     src/sysdolphin/baselib/fobj.c
+    src/sysdolphin/baselib/generator.c
     src/sysdolphin/baselib/gobj.c
     src/sysdolphin/baselib/gobjgxlink.c
+    src/sysdolphin/baselib/gobjinit.c
     src/sysdolphin/baselib/gobjobject.c
     src/sysdolphin/baselib/gobjplink.c
     src/sysdolphin/baselib/gobjproc.c
     src/sysdolphin/baselib/gobjuserdata.c
     src/sysdolphin/baselib/hash.c
+    src/sysdolphin/baselib/hsd_3924.c
+    src/sysdolphin/baselib/hsd_392A.c
+    src/sysdolphin/baselib/hsd_392C.c
+    src/sysdolphin/baselib/hsd_3933.c
+    src/sysdolphin/baselib/hsd_393C.c
+    src/sysdolphin/baselib/hsd_397E.c
+    src/sysdolphin/baselib/hsd_3982.c
+    src/sysdolphin/baselib/hsd_3A64.c
+    src/sysdolphin/baselib/hsd_3A76.c
+    src/sysdolphin/baselib/hsd_3A94.c
+    src/sysdolphin/baselib/hsd_3B27.c
+    src/sysdolphin/baselib/hsd_3B2B.c
+    src/sysdolphin/baselib/hsd_3B2E.c
+    src/sysdolphin/baselib/hsd_4D11.c
     src/sysdolphin/baselib/id.c
     src/sysdolphin/baselib/initialize.c
     src/sysdolphin/baselib/jobj.c
     src/sysdolphin/baselib/leak.c
     src/sysdolphin/baselib/list.c
     src/sysdolphin/baselib/lobj.c
+    src/sysdolphin/baselib/memory.c
     src/sysdolphin/baselib/mobj.c
     src/sysdolphin/baselib/mtx.c
     src/sysdolphin/baselib/objalloc.c
     src/sysdolphin/baselib/object.c
+    src/sysdolphin/baselib/particle.c
     src/sysdolphin/baselib/perf.c
     src/sysdolphin/baselib/psappsrt.c
     src/sysdolphin/baselib/psdisptev.c
@@ -40,7 +59,11 @@ set(SOURCES
     src/sysdolphin/baselib/robj.c
     src/sysdolphin/baselib/rumble.c
     src/sysdolphin/baselib/shadow.c
+    src/sysdolphin/baselib/sislib.c
+    src/sysdolphin/baselib/sobjlib.c
+    src/sysdolphin/baselib/spline.c
     src/sysdolphin/baselib/state.c
+    src/sysdolphin/baselib/synth.c
     src/sysdolphin/baselib/tev.c
     src/sysdolphin/baselib/texp.c
     src/sysdolphin/baselib/texpdag.c
@@ -59,6 +82,7 @@ set(SOURCES
     src/melee/db/dbitem.c
     src/melee/db/dbscreenshot.c
     src/melee/db/dbsound.c
+    src/melee/ef/efalt.c
     src/melee/ef/efasync.c
     src/melee/ef/efdata.c
     src/melee/ef/eflib.c
@@ -464,6 +488,7 @@ set(SOURCES
     src/melee/ft/ft_0D4D.c
     src/melee/ft/ft_0DF0.c
     src/melee/ft/ft_0DF1.c
+    src/melee/ft/ft_3C61.c
     src/melee/ft/ftaction.c
     src/melee/ft/ftafterimage.c
     src/melee/ft/ftanim.c
@@ -507,9 +532,19 @@ set(SOURCES
     src/melee/gm/gm_16AE.c
     src/melee/gm/gm_16F1.c
     src/melee/gm/gm_1736.c
+    src/melee/gm/gm_1798.c
     src/melee/gm/gm_17AD.c
     src/melee/gm/gm_17BA.c
+    src/melee/gm/gm_17C0.c
+    src/melee/gm/gm_17E4.c
+    src/melee/gm/gm_17EB.c
+    src/melee/gm/gm_180A.c
+    src/melee/gm/gm_181A.c
     src/melee/gm/gm_1832.c
+    src/melee/gm/gm_186E.c
+    src/melee/gm/gm_1879.c
+    src/melee/gm/gm_1884.c
+    src/melee/gm/gm_18A1.c
     src/melee/gm/gm_19EF.c
     src/melee/gm/gm_1A33.c
     src/melee/gm/gm_1A36.c
@@ -520,7 +555,20 @@ set(SOURCES
     src/melee/gm/gm_1ADD.c
     src/melee/gm/gm_1AED.c
     src/melee/gm/gm_1B03.c
+    src/melee/gm/gmcameramode.c
+    src/melee/gm/gmdebugmode.c
+    src/melee/gm/gmgover.c
+    src/melee/gm/gmhanyucss.c
+    src/melee/gm/gmhanyusss.c
     src/melee/gm/gmmenumode.c
+    src/melee/gm/gmopeningmode.c
+    src/melee/gm/gmprogressivemode.c
+    src/melee/gm/gmtitlemode.c
+    src/melee/gm/gmtoumode.c
+    src/melee/gm/gmtoycollection.c
+    src/melee/gm/gmtoygallery.c
+    src/melee/gm/gmtoylottery.c
+    src/melee/gm/gmtrainingmode.c
     src/melee/gm/gmvsmode.c
     src/melee/gm/gmevent.c
     src/melee/gm/gmboot.c
@@ -591,6 +639,7 @@ set(SOURCES
     src/melee/if/soundtest.c
     src/melee/if/textdraw.c
     src/melee/if/textlib.c
+    src/melee/if/textlib_1.c
     src/melee/it/it_26B1.c
     src/melee/it/it_2725.c
     src/melee/it/it_279C.c
@@ -698,6 +747,7 @@ set(SOURCES
     src/melee/it/kinds/itmetalb.c
     src/melee/it/kinds/itmetamon.c
     src/melee/it/kinds/itmew.c
+    src/melee/it/kinds/itmewtwodisable.c
     src/melee/it/kinds/itmewtwoshadowball.c
     src/melee/it/kinds/itmsbomb.c
     src/melee/it/kinds/itnessbat.c
@@ -779,6 +829,8 @@ set(SOURCES
     src/melee/lb/lb_013B.c
     src/melee/lb/lb_0146.c
     src/melee/lb/lb_0192.c
+    src/melee/lb/lb_020A.c
+    src/melee/lb/lb_0219.c
     src/melee/lb/lbanim.c
     src/melee/lb/lbarchive.c
     src/melee/lb/lbarq.c

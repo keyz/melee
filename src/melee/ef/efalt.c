@@ -9,7 +9,7 @@
 #include <sysdolphin/baselib/gobj.h>
 #include <sysdolphin/baselib/jobj.h>
 
-#define EFALT_VA_ARG(t) (*((t*) __va_arg(vlist_arg, _var_arg_typeof(t))))
+#define EFALT_VA_ARG(t) va_arg(vlist, t)
 
 extern volatile u32 efLib_LoadKind;
 extern volatile s32 efLib_AnimCount;
@@ -24,9 +24,7 @@ void* efAlt_Spawn(s32 gfx_id, HSD_GObj* gobj, va_list vlist)
     Vec3 scale;
     f32* value_ptr;
     void* ret_obj;
-    void* vlist_arg;
 
-    vlist_arg = vlist;
     ret_obj = NULL;
     efLib_LoadKind = EF_LOADKIND_SYNC;
     PAD_STACK(80);
@@ -139,7 +137,7 @@ void* efAlt_Spawn(s32 gfx_id, HSD_GObj* gobj, va_list vlist)
         }
         break;
     case 0x48D:
-        ret_obj = efLib_CreateGenerator_AppSRT_SetFacingDir(0xBC0, vlist_arg);
+        ret_obj = efLib_CreateGenerator_AppSRT_SetFacingDir(0xBC0, vlist);
         break;
     case 0x48E: {
         ret_obj = efLib_Create_Attach_Pos(0xBBDU, gobj, EFALT_VA_ARG(Vec3*));
@@ -287,7 +285,7 @@ void* efAlt_Spawn(s32 gfx_id, HSD_GObj* gobj, va_list vlist)
             efLib_Create_AttachChild(0x138FU, gobj, EFALT_VA_ARG(HSD_JObj*));
         break;
     case 0x49A:
-        ret_obj = efLib_CreateGenerator_AppSRT_SetFacingDir(0x138B, vlist_arg);
+        ret_obj = efLib_CreateGenerator_AppSRT_SetFacingDir(0x138B, vlist);
         break;
     case 0x49B:
         ret_obj = hsd_8039EFAC(0, 5, 0x138F, EFALT_VA_ARG(HSD_JObj*));
@@ -347,16 +345,16 @@ void* efAlt_Spawn(s32 gfx_id, HSD_GObj* gobj, va_list vlist)
         ret_obj = efLib_CreateGenerator(0x7D02, EFALT_VA_ARG(Vec3*));
         break;
     case 0x4A5:
-        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA028, vlist_arg, gobj);
+        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA028, vlist, gobj);
         break;
     case 0x4A6:
-        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA029, vlist_arg, gobj);
+        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA029, vlist, gobj);
         break;
     case 0x4A7:
-        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA02A, vlist_arg, gobj);
+        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA02A, vlist, gobj);
         break;
     case 0x4A8:
-        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA02B, vlist_arg, gobj);
+        ret_obj = efLib_CreateGenerator_Attach_Scale(0xA02B, vlist, gobj);
         break;
     case 0x4A1:
         jobj = EFALT_VA_ARG(HSD_JObj*);
@@ -460,7 +458,7 @@ void* efAlt_Spawn(s32 gfx_id, HSD_GObj* gobj, va_list vlist)
         ret_obj = hsd_8039EFAC(0, 0x2E, 0xB3B1, jobj);
         break;
     case 0x4B0:
-        ret_obj = efLib_CreateGenerator_AppSRT_SetFacingDir(0xB3B6, vlist_arg);
+        ret_obj = efLib_CreateGenerator_AppSRT_SetFacingDir(0xB3B6, vlist);
         break;
     case 0x4B1: {
         HSD_JObj* input_jobj;
