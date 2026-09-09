@@ -83,11 +83,11 @@ void ft_80089B08(Fighter_GObj* gobj)
     Quaternion rot_save5;
     Vec3 sp38;
     Vec3 sp2C;
-    volatile f32 line_len_sqrt;
+    UNUSED u8 pad[4];
     Vec3 sp1C;
+    volatile f32 line_len_sqrt;
 
     Fighter* fp = gobj->user_data;
-    (void) &line_len_sqrt;
 
     if (!fp->x2219_b5 && fp->ground_or_air == GA_Ground) {
         if (db_804D4AF8 != 0) {
@@ -186,8 +186,8 @@ void ft_80089B08(Fighter_GObj* gobj)
                 guess = 0.5 * guess * (3.0 - guess * guess * line_len);
                 guess = 0.5 * guess * (3.0 - guess * guess * line_len);
                 guess = 0.5 * guess * (3.0 - guess * guess * line_len);
-                ((volatile f32*) &sp1C)[-1] = (f32) ((f64) line_len * guess);
-                line_len = ((volatile f32*) &sp1C)[-1];
+                line_len_sqrt = (f32) ((f64) line_len * guess);
+                line_len = line_len_sqrt;
             }
             if (line_len < 5.0f) {
                 adj_angle = 0.0f;
@@ -232,7 +232,7 @@ void ft_80089B08(Fighter_GObj* gobj)
             ftPartSetRotX(fp, 0, angle);
         }
     }
-    PAD_STACK(16);
+    PAD_STACK(12);
 }
 
 void ft_8008A1B8(Fighter_GObj* gobj, u32 flags)
