@@ -226,6 +226,30 @@ jobs:
       with:
         name: doldecomp-melee
     - run: nix build .#melee-gcc-native -L
+    - name: Summarize native compilation
+      run: |
+        python3 - <<'PYTHON' >> "$GITHUB_STEP_SUMMARY"
+        import json
+        from pathlib import Path
+
+        report = json.loads(Path("result/share/melee/native-compile.json").read_text())
+        compiler = report["compiler"]
+        checked = len(report["sources"])
+        excluded = report["excluded"]
+        print("### Native compilation — game/HSD sources\n")
+        print(f"{compiler['id']} {compiler['version']} · {compiler['target']} · {compiler['pointer_bits']}-bit pointers\n")
+        print(f"**{checked}/{checked + len(excluded)} sources compiled; {len(excluded)} excluded.**\n")
+        print("Checks compilation and static-library creation. Executable linking and runtime behavior are not tested.\n")
+        print("| Excluded source | Reason |\n|---|---|")
+        for entry in excluded:
+            print(f"| `{entry['path']}` | {entry['reason']} |")
+        PYTHON
+    - name: Upload native compilation coverage
+      uses: actions/upload-artifact@v7
+      with:
+        name: native-compilation
+        path: result/share/melee/native-compile.json
+        if-no-files-found: error
 
   build-nix:
     name: Nix
