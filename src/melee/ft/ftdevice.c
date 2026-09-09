@@ -31,7 +31,7 @@ enum_t ftCo_800C0694(Fighter* fp)
 
 int ftCo_800C06B4(Fighter* fp)
 {
-    return (int) &fp->x508.x28_colanim.ptr->x7B;
+    return fp->x508.x28_colanim.i + 0x7B;
 }
 
 void ftCo_800C06C0(void)
