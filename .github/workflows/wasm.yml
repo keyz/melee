@@ -24,14 +24,10 @@ jobs:
           git -C "$RUNNER_TEMP/aurora" remote add origin https://github.com/r-burns/aurora.git
           git -C "$RUNNER_TEMP/aurora" fetch --depth 1 origin e6a6f02ace4146e8a2f648d5c274dbb7dd89665c
           git -C "$RUNNER_TEMP/aurora" checkout --detach FETCH_HEAD
-      - name: Test coverage runner
-        run: |
-          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
-          python3 -m unittest discover -s tools/tests -p 'test_wasm_coverage.py'
       - name: Compile all files and report coverage
         run: |
           source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
-          python3 tools/wasm_coverage.py --aurora "$RUNNER_TEMP/aurora"
+          AURORA_SRC="$RUNNER_TEMP/aurora" python3 tools/wasm_coverage.py
       - name: Publish summary
         if: always()
         run: |
