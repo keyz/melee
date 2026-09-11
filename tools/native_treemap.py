@@ -4,10 +4,11 @@ Run from the repository root, after `nix build .#melee-gcc-native`:
     python3 tools/native_treemap.py result/share/melee/native-sources.txt > native-treemap.html
 """
 
-import json
 import subprocess
 import sys
 from pathlib import Path
+
+import plotly.graph_objects as go
 
 compiled = set(Path(sys.argv[1]).read_text().splitlines())
 files = sorted(
@@ -39,28 +40,17 @@ trace = {
     "hovertemplate": "%{id}<br>%{customdata}<extra></extra>",
     "textinfo": "label",
 }
-print(f"""<!DOCTYPE html>
-<html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Melee native compilation coverage</title>
-<style>
-body {{ margin: 24px; background: #151b24; color: #edf1f7; font: 16px system-ui; }}
-h1 {{ font-size: 24px; }}
-p {{ color: #b9c3d2; }}
-#map {{ height: 75vh; }}
-</style>
-<h1>Native compilation: {len(compiled)} / {len(files)} files ({len(compiled) / len(files):.2%})</h1>
-<p>32-bit Linux GCC · commit {commit[:12]}</p>
-<p>Green: compiled · Gray: excluded · One equal-area tile per C file.<br>
-Scope: src/melee and src/sysdolphin. Compilation does not establish linking or runtime correctness.</p>
-<div id="map"></div>
-<p>Click a directory to zoom; use the path bar to go back. Chart requires internet access.</p>
-<script src="https://cdn.plot.ly/plotly-3.1.0.min.js"></script>
-<script>
-Plotly.newPlot('map', [{json.dumps(trace)}], {{
-    margin: {{t: 0, l: 0, r: 0, b: 0}}, paper_bgcolor: '#151b24',
-    font: {{color: '#edf1f7'}}
-}}, {{responsive: true, displayModeBar: false}});
-</script>
-</html>""")
+figure = go.Figure(trace)
+figure.update_layout(
+    template="plotly_dark",
+    title=dict(
+        text=f"Native compilation: {len(compiled)} / {len(files)} files ({len(compiled) / len(files):.2%})",
+        subtitle=dict(text=(
+            f"32-bit Linux GCC · commit {commit[:12]}<br>"
+            "Green: compiled · Gray: excluded · Equal-area C file tiles · Click directories to zoom.<br>"
+            "Scope: src/melee and src/sysdolphin. Compilation does not establish linking or runtime correctness."
+        )),
+    ),
+    margin=dict(t=140, l=10, r=10, b=10),
+)
+figure.write_html(sys.stdout, config={"displayModeBar": False})
