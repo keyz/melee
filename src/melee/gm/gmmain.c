@@ -3,6 +3,10 @@
 
 #include <sysdolphin/baselib/forward.h>
 
+#ifdef TARGET_PC
+#include <string.h>
+#endif
+
 #include "gm_unsplit.h"
 #include "gmmain_lib.h"
 #include "types.h"
@@ -136,7 +140,18 @@ int main(void)
     VIInit();
     DVDInit();
     PADInit();
+#ifdef TARGET_PC
+    {
+        const DVDDiskID* id = DVDGetCurrentDiskID();
+        char game[5] = { 0 };
+        char company[3] = { 0 };
+        memcpy(game, id->gameName, 4);
+        memcpy(company, id->company, 2);
+        CARDInit(game, company);
+    }
+#else
     CARDInit();
+#endif
     OSInitAlarm();
     db_GetGameLaunchButtonState();
     gmMain_8015FDA4();

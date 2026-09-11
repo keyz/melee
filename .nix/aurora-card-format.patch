@@ -1,0 +1,10 @@
+--- a/include/dolphin/card.h
++++ b/include/dolphin/card.h
+@@ -288,6 +288,7 @@
+
+ // CARDFormat
+ s32 CARDFormat(s32 chan);
++s32 CARDFormatAsync(s32 chan, CARDCallback callback);
+
+ // CARDMount
+ int CARDProbe(s32 chan);

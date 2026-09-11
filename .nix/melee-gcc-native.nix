@@ -1,5 +1,6 @@
 {
   lib,
+  applyPatches,
   stdenv,
   cmake,
   aurora-src,
@@ -29,7 +30,11 @@ stdenv.mkDerivation {
 
   makeFlags = [ "-k" ];
 
-  env.AURORA_SRC = aurora-src;
+  env.AURORA_SRC = applyPatches {
+    name = "aurora-native-support";
+    src = aurora-src;
+    patches = [ ./aurora-card-format.patch ];
+  };
 
   __structuredAttrs = true;
 }
