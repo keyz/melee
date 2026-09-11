@@ -226,6 +226,12 @@ jobs:
       with:
         name: doldecomp-melee
     - run: nix build .#melee-gcc-native -L
+    - name: Native compilation treemap
+      run: python3 tools/native_treemap.py result/share/melee/native-sources.txt > native-treemap.html
+    - uses: actions/upload-artifact@v4
+      with:
+        name: native-treemap
+        path: native-treemap.html
 
   build-nix:
     name: Nix

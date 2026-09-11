@@ -35,3 +35,9 @@ target_include_directories(melee PRIVATE
 )
 
 install(TARGETS melee LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+
+# Export the actual source selection for the compilation coverage report.
+list(TRANSFORM SOURCES REPLACE "^${PROJECT_SOURCE_DIR}/" "" OUTPUT_VARIABLE NATIVE_SOURCES)
+string(JOIN "\n" NATIVE_SOURCES ${NATIVE_SOURCES})
+file(GENERATE OUTPUT native-sources.txt CONTENT "${NATIVE_SOURCES}\n")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/native-sources.txt" DESTINATION "${CMAKE_INSTALL_DATADIR}/melee")
