@@ -19,9 +19,7 @@ list(FILTER SOURCES EXCLUDE REGEX "fog.c") # GXInitFogAdjTable
 list(FILTER SOURCES EXCLUDE REGEX "gmmain.c") # CARDInit
 list(FILTER SOURCES EXCLUDE REGEX "hsd_3915.c") # requires debug font from dol
 list(FILTER SOURCES EXCLUDE REGEX "lb_0195.c") # PADSetSamplingRate
-list(FILTER SOURCES EXCLUDE REGEX "lb_01F8.c") # needs dolphin/thp
 list(FILTER SOURCES EXCLUDE REGEX "lbcardnew.c") # CARD ASync
-list(FILTER SOURCES EXCLUDE REGEX "lbmthp.c") # needs dolphin/thp
 list(FILTER SOURCES EXCLUDE REGEX "pobj.c") # nontrivial GXSetArray usage
 list(FILTER SOURCES EXCLUDE REGEX "sislib_font.c") # requires font from dol
 list(FILTER SOURCES EXCLUDE REGEX "video.c") # needs VIPadFrameBufferWidth
@@ -32,6 +30,7 @@ add_library(melee STATIC ${SOURCES})
 target_include_directories(melee PRIVATE
     $ENV{AURORA_SRC}/include
     src
+    extern/dolphin/include
 )
 
 install(TARGETS melee LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")

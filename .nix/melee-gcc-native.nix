@@ -10,6 +10,7 @@ stdenv.mkDerivation {
   src = lib.fileset.toSource {
     root = ../.;
     fileset = lib.fileset.unions [
+      ../extern/dolphin/include/dolphin/thp
       ../src/sysdolphin
       ../src/melee
       ../src/Runtime
