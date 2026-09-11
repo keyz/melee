@@ -1,0 +1,48 @@
+name: Wasm compilation coverage
+
+on:
+  push:
+    branches: [codex/wasm-compilation-coverage]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Emscripten
+        run: |
+          git clone --depth 1 --branch 4.0.15 https://github.com/emscripten-core/emsdk.git "$RUNNER_TEMP/emsdk"
+          "$RUNNER_TEMP/emsdk/emsdk" install 4.0.15
+          "$RUNNER_TEMP/emsdk/emsdk" activate 4.0.15
+      - name: Fetch pinned Aurora headers
+        run: |
+          git init "$RUNNER_TEMP/aurora"
+          git -C "$RUNNER_TEMP/aurora" remote add origin https://github.com/r-burns/aurora.git
+          git -C "$RUNNER_TEMP/aurora" fetch --depth 1 origin e6a6f02ace4146e8a2f648d5c274dbb7dd89665c
+          git -C "$RUNNER_TEMP/aurora" checkout --detach FETCH_HEAD
+      - name: Test coverage runner
+        run: |
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          python3 -m unittest discover -s tools/tests -p 'test_wasm_coverage.py'
+      - name: Compile all files and report coverage
+        run: |
+          source "$RUNNER_TEMP/emsdk/emsdk_env.sh"
+          python3 tools/wasm_coverage.py --aurora "$RUNNER_TEMP/aurora"
+      - name: Publish summary
+        if: always()
+        run: |
+          if test -f build/wasm-coverage/summary.md; then
+            cat build/wasm-coverage/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wasm-compilation-coverage
+          path: |
+            build/wasm-coverage/report.json
+            build/wasm-coverage/summary.md
+            build/wasm-coverage/logs/
