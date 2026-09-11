@@ -12,7 +12,6 @@ add_compile_definitions(TARGET_PC)
 
 add_compile_definitions(bool=int)
 
-list(FILTER SOURCES EXCLUDE REGEX "dberror.c") # OSContext register usage
 list(FILTER SOURCES EXCLUDE REGEX "debug.c") # PPC register usage
 list(FILTER SOURCES EXCLUDE REGEX "debugconsole_main.c") # PPC register usage
 list(FILTER SOURCES EXCLUDE REGEX "fog.c") # GXInitFogAdjTable
