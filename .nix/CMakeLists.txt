@@ -14,7 +14,6 @@ add_compile_definitions(bool=int)
 
 list(FILTER SOURCES EXCLUDE REGEX "debug.c") # PPC register usage
 list(FILTER SOURCES EXCLUDE REGEX "debugconsole_main.c") # PPC register usage
-list(FILTER SOURCES EXCLUDE REGEX "fog.c") # GXInitFogAdjTable
 list(FILTER SOURCES EXCLUDE REGEX "hsd_3915.c") # requires debug font from dol
 list(FILTER SOURCES EXCLUDE REGEX "lb_0195.c") # PADSetSamplingRate
 list(FILTER SOURCES EXCLUDE REGEX "pobj.c") # nontrivial GXSetArray usage

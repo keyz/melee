@@ -1,0 +1,53 @@
+--- a/include/dolphin/gx/GXPixel.h
++++ b/include/dolphin/gx/GXPixel.h
+@@ -9,6 +9,7 @@
+
+ void GXSetFog(GXFogType type, f32 startz, f32 endz, f32 nearz, f32 farz, GXColor color);
+ void GXSetFogColor(GXColor color);
++void GXInitFogAdjTable(GXFogAdjTable* table, u16 width, f32 projmtx[4][4]);
+ void GXSetFogRangeAdj(GXBool enable, u16 center, GXFogAdjTable *table);
+ void GXSetBlendMode(GXBlendMode type, GXBlendFactor src_factor, GXBlendFactor dst_factor, GXLogicOp op);
+ void GXSetColorUpdate(GXBool update_enable);
+--- a/cmake/aurora_gx.cmake
++++ b/cmake/aurora_gx.cmake
+@@ -31,6 +31,7 @@
+         lib/dolphin/gx/GXDraw.cpp
+         lib/dolphin/gx/GXExtra.cpp
+         lib/dolphin/gx/GXFifo.cpp
++        lib/dolphin/gx/GXFog.c
+         lib/dolphin/gx/GXFrameBuffer.cpp
+         lib/dolphin/gx/GXGeometry.cpp
+         lib/dolphin/gx/GXGet.cpp
+--- /dev/null
++++ b/lib/dolphin/gx/GXFog.c
+@@ -0,0 +1,30 @@
++#include <dolphin/gx/GXPixel.h>
++
++#include <math.h>
++
++void GXInitFogAdjTable(GXFogAdjTable *table, u16 width, f32 projmtx[4][4])
++{
++    f32 xi;
++    f32 iw;
++    f32 rangeVal;
++    f32 nearZ;
++    f32 sideX;
++    u32 i;
++
++    if (0.0 == projmtx[3][3]) {
++        nearZ = projmtx[2][3] / (projmtx[2][2] - 1.0f);
++        sideX = (nearZ * (1.0f + projmtx[0][2])) / projmtx[0][0];
++    } else {
++        nearZ = (1.0f + projmtx[2][3]) / projmtx[2][2];
++        sideX = -(projmtx[0][3] - 1.0f) / projmtx[0][0];
++    }
++
++    iw = 2.0f / width;
++    for (i = 0; i < 10; i++) {
++        xi = (i + 1) << 5;
++        xi *= iw;
++        xi *= sideX;
++        rangeVal = sqrtf(1.0f + ((xi * xi) / (nearZ * nearZ)));
++        table->r[i] = (u32)(256.0f * rangeVal) & 0xFFF;
++    }
++}

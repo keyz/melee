@@ -33,7 +33,10 @@ stdenv.mkDerivation {
   env.AURORA_SRC = applyPatches {
     name = "aurora-native-support";
     src = aurora-src;
-    patches = [ ./aurora-card-format.patch ];
+    patches = [
+      ./aurora-card-format.patch
+      ./aurora-fog.patch
+    ];
   };
 
   __structuredAttrs = true;
